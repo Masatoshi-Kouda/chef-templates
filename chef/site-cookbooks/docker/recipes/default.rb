@@ -7,8 +7,9 @@ service "docker" do
   action [:enable, :start]
 end
 
-group "docker" do
-  action :modify
-  members ['vagrant']
-  append true
+node['docker']['groups'].each do |group|
+  group "docker" do
+    action :modify
+    members "#{group}"
+  end
 end
