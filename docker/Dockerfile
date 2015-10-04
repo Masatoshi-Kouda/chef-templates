@@ -1,0 +1,18 @@
+FROM centos:6
+
+RUN yum install -y passwd sudo openssh-server
+
+RUN groupadd docker
+RUN useradd docker -g docker -G wheel
+RUN echo "docker"|passwd --stdin docker""
+RUN echo "docker        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers.d/docker
+RUN chmod 0440 /etc/sudoers.d/docker
+RUN mkdir -pm 700 /home/docker/.ssh
+COPY id_rsa.pub /home/docker/.ssh/authorized_keys
+RUN chmod 0600 /home/docker/.ssh/authorized_keys
+RUN chown -R docker:docker /home/docker/.ssh
+RUN /etc/init.d/sshd start
+RUN /etc/init.d/sshd stop
+
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
