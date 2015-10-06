@@ -1,6 +1,6 @@
 execute "docker install" do
   command "curl -sSL #{node['docker']['url_path']} | sh"
-  not_if "rpm -qa | grep -q docker-engine"
+  not_if "rpm -qa | grep -q docker"
 end
 
 service "docker" do
