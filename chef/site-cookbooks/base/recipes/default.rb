@@ -1,7 +1,7 @@
 # epel,remi,rpmforge install
 %w{epel remi rpmforge}.each do |repo|
   execute "#{repo} install" do
-    if node['platform_version'].to_i == 6 
+    if node['platform_version'].to_i == 6 || node["platform"] == "amazon"
       command "rpm -Uvh #{node["#{repo}"]['centos6']['url_path']}"
     elsif node['platform_version'].to_i == 7 
       command "rpm -Uvh #{node["#{repo}"]['centos7']['url_path']}"
@@ -11,7 +11,7 @@
 end
 
 # timezone setup
-if node['platform_version'].to_i == 6 
+if node['platform_version'].to_i == 6 || node["platform"] == "amazon"
   cookbook_file "/etc/localtime" do
     source "Tokyo"
     mode 0644
@@ -38,7 +38,7 @@ execute "localedef ja_JP.utf8" do
   not_if "locale -a | grep -q ja_JP.utf8"
 end
 
-if node['platform_version'].to_i == 6 
+if node['platform_version'].to_i == 6 || node["platform"] == "amazon"
   template "/etc/sysconfig/i18n" do
     source "i18n"
     mode 0644

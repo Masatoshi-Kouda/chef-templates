@@ -7,7 +7,7 @@ execute "jenkins-repo install" do
   not_if {File.exists?("#{node['jenkins']['repo']}")}
 end
 
-execute "jenkins-repo install" do
+execute "jenkins-gpg-key install" do
   command "rpm --import #{node['jenkins']['gpg_url']}"
   not_if "rpm -qa | grep -q #{node['jenkins']['gpg_key']}"
 end
