@@ -60,6 +60,7 @@ git
 tree
 telnet
 sysstat
+strace
 tcpdump
 bind-utils
 wget
