@@ -4,9 +4,10 @@
 ####################
 ssh_config () {
     local port=$1
+    local ipaddr=$2
     cat << EOF
 Host app
-  HostName 172.17.42.1
+  HostName ${ipaddr}
   User docker
   Port ${port}
   UserKnownHostsFile /dev/null
@@ -43,7 +44,8 @@ fi
 
 sudo docker run -d -P --name test_sshd centos/sshd
 port=$(sudo docker inspect --format='{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' test_sshd)
-ssh_config $port > ~/.ssh/ssh_config
+ipaddr=$(sudo docker inspect --format '{{ .NetworkSettings.Gateway }}' test_sshd)
+ssh_config $port $ipaddr > ~/.ssh/ssh_config
 
 node_json > $WORKSPACE/chef/nodes/app.json
 
