@@ -45,13 +45,13 @@ fi
 sudo docker run -d -P --name test_sshd centos/sshd
 port=$(sudo docker inspect --format='{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' test_sshd)
 ipaddr=$(sudo docker inspect --format '{{ .NetworkSettings.Gateway }}' test_sshd)
-ssh_config $port $ipaddr > ~/.ssh/ssh_config
+ssh_config $port $ipaddr > $WORKSPACE/docker/ssh_config
 
 node_json > $WORKSPACE/chef/nodes/app.json
 
 sleep 3
 cd $WORKSPACE/chef
-bundle exec knife solo bootstrap app -F ~/.ssh/ssh_config
+bundle exec knife solo bootstrap app -F $WORKSPACE/docker/ssh_config
 
 sudo docker stop test_sshd
 sudo docker rm test_sshd
