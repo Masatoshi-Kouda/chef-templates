@@ -35,14 +35,14 @@ EOF
 bundle install --path vendor/bundle
 
 cd $WORKSPACE/docker
-sudo docker images | grep -q centos6/sshd/g
+sudo docker images | grep -q centos6/sshd
 if [ $? -ne 0 ]; then
     sudo rm -f ./id_rsa*
     sudo -u jenkins ssh-keygen -t rsa -C '' -f ./id_rsa -N ''
-    sudo docker build -t centos6/sshd/g .
+    sudo docker build -t centos6/sshd .
 fi
 
-sudo docker run -d -P --name test_sshd centos6/sshd/g
+sudo docker run -d -P --name test_sshd centos6/sshd
 port=$(sudo docker inspect --format='{{(index (index .NetworkSettings.Ports "22/tcp") 0).HostPort}}' test_sshd)
 ipaddr=$(sudo docker inspect --format '{{ .NetworkSettings.Gateway }}' test_sshd)
 ssh_config $port $ipaddr > $WORKSPACE/docker/ssh_config
