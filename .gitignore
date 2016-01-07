@@ -7,4 +7,6 @@ doc/
 .idea
 .secret
 /vendor
-/.vagrant
+.vagrant
+/packer/packer_cache
+/packer/*.box
