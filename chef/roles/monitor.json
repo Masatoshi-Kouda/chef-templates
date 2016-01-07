@@ -1,0 +1,22 @@
+{
+  "name": "monitor",
+  "default_attributes": {},
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+  "run_list":[
+    "recipe[base]",
+    "recipe[ntp]",
+    "recipe[postfix]",
+    "recipe[apache2]",
+    "recipe[php]",
+    "recipe[mysql::client]",
+    "recipe[mysql::server]",
+    "recipe[mysql::setup]",
+    "recipe[mysql::conf]",
+    "recipe[zabbix-server]",
+    "recipe[mysql::zabbix]",
+    "recipe[apache2::zabbix]"
+  ]
+}

@@ -1,0 +1,6 @@
+default['zabbix-server']['url_path'] = 'http://repo.zabbix.com/zabbix/2.4/rhel/6/x86_64/zabbix-release-2.4-1.el6.noarch.rpm'
+default['zabbix-server']['db_host'] = 'localhost'
+default['zabbix-server']['db_name'] = 'zabbix'
+default['zabbix-server']['db_user'] = 'zabbix'
+default['zabbix-server']['db_password'] = 'kDw3BtFLST'
+default['zabbix-server']['db_socket'] = '/var/lib/mysql/mysql.sock'
