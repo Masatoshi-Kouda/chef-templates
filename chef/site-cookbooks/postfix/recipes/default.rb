@@ -13,6 +13,7 @@ end
 
 service "postfix" do
   action [ :enable, :start ]
+  supports :start => true, :status => true, :restart => true, :reload => true
 end
 
 template "/etc/postfix/main.cf" do

@@ -25,8 +25,9 @@ EOF
 bundle install --path vendor/bundle
 
 cd $WORKSPACE/docker
+RETVAL=0
 sudo docker images | grep -q centos6/sshd || RETVAL=$?
-if [ $RETVAL -ne 0 ]; then
+if [ "$RETVAL" -ne 0 ]; then
     sudo rm -f ./id_rsa*
     sudo rm -f ./authorized_keys
     sudo -u jenkins ssh-keygen -t rsa -C '' -f ./id_rsa -N ''

@@ -1,6 +1,7 @@
 FROM masatoshi/centos:6.7
 
 RUN yum install -y passwd sudo openssh-server
+RUN yum reinstall -y glibc-common
 
 RUN groupadd docker
 RUN useradd docker -g docker -G wheel
