@@ -25,8 +25,6 @@ EOF
 bundle install --path vendor/bundle
 
 cd $WORKSPACE/docker
-sudo docker images | grep -q centos6/sshd
-if [ $? -ne 0 ]; then
 RETVAL=0
 sudo docker images | grep -q centos6/sshd || RETVAL=$?
 if [ "$RETVAL" -ne 0 ]; then
