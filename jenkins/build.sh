@@ -6,7 +6,7 @@ ssh_config () {
     local port=$1
     local ipaddr=$2
     cat << EOF
-Host container
+Host monitor
   HostName ${ipaddr}
   User docker
   Port ${port}
@@ -43,6 +43,8 @@ ssh_config $port $ipaddr > $WORKSPACE/docker/ssh_config
 
 cd $WORKSPACE/chef
 bundle exec knife solo bootstrap container -F $WORKSPACE/docker/ssh_config -r role[monitor]
+cd $WORKSPACE/serverspec
+bundle exec rake serverspec:monitor
 
 sudo docker stop test_sshd
 sudo docker rm test_sshd

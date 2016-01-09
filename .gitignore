@@ -10,3 +10,6 @@ doc/
 .vagrant
 /packer/packer_cache
 /packer/*.box
+/docker/id_rsa
+/docker/id_rsa.pub
+/docker/ssh_config
