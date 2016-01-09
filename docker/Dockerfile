@@ -6,6 +6,7 @@ RUN yum reinstall -y glibc-common
 RUN groupadd docker
 RUN useradd docker -g docker -G wheel
 RUN echo "docker"|passwd --stdin docker""
+RUN sed -i 's/^.*requiretty/#Defaults requiretty/' /etc/sudoers
 RUN echo "docker        ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers.d/docker
 RUN chmod 0440 /etc/sudoers.d/docker
 RUN mkdir -pm 700 /home/docker/.ssh
