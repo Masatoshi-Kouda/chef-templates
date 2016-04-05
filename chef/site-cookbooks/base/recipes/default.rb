@@ -28,7 +28,7 @@ if node['platform_version'].to_i == 6 || node["platform"] == "amazon"
 elsif node['platform_version'].to_i == 7 
   execute "timezone setup" do
     command "timedatectl set-timezone Asia/Tokyo"
-    not_if "timedatectl status | grep -q 'Timezone: Asia/Tokyo'"
+    not_if "timedatectl status | grep -q 'Asia/Tokyo'"
   end
 end
 
@@ -54,6 +54,9 @@ end
 
 # base packages install
 %w{
+gcc
+gcc-c++
+make
 vim
 tar
 git
